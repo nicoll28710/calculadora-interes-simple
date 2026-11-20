@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculadora de Interés Simple</title>
+  <style>
+    body{font-family:Arial,sans-serif;background:#f4f6f8;display:flex;justify-content:center;padding:30px}
+    .card{background:#fff;padding:24px;border-radius:10px;box-shadow:0 2px 8px #0002;max-width:380px;width:100%}
+    label{display:block;margin-top:12px;font-weight:bold}
+    input,select,button{width:100%;padding:8px;margin-top:4px;box-sizing:border-box}
+    button{background:#0b6e4f;color:#fff;border:0;border-radius:6px;margin-top:16px;cursor:pointer}
+    #res{margin-top:16px;font-size:1.05em}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Interés Simple</h2>
+    <p>I = C · i · t &nbsp;|&nbsp; M = C + I</p>
+    <label>Capital (C)</label><input id="c" type="number" min="0" step="any">
+    <label>Tasa de interés anual (%)</label><input id="i" type="number" min="0" step="any">
+    <label>Tiempo (t)</label><input id="t" type="number" min="0" step="any">
+    <select id="u">
+      <option value="1">Años</option>
+      <option value="12">Meses</option>
+      <option value="360">Días (año comercial 360)</option>
+    </select>
+    <button onclick="calcular()">Calcular</button>
+    <div id="res"></div>
+  </div>
+  <script>
+    function calcular(){
+      const c=parseFloat(c_.value), i=parseFloat(i_.value)/100,
+            t=parseFloat(t_.value)/parseFloat(u.value);
+      if([c,i,t].some(isNaN)){res.textContent="Completa todos los campos.";return;}
+      const I=c*i*t, M=c+I, f=n=>n.toLocaleString("es-CO",{style:"currency",currency:"COP"});
+      res.innerHTML=`Interés (I): <b>${f(I)}</b><br>Monto final (M): <b>${f(M)}</b>`;
+    }
+    const c_=document.getElementById("c"), i_=document.getElementById("i"),
+          t_=document.getElementById("t"), u=document.getElementById("u"),
+          res=document.getElementById("res");
+  </script>
+</body>
+</html>
